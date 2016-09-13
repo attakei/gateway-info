@@ -1,5 +1,7 @@
 # -*- coding:utf8 -*-
+import sys
 import json
+import argparse
 from bottle import route, run, template, view
 from bottle import HTTPResponse
 
@@ -30,4 +32,19 @@ def fetch_asp(asp):
     return []
 
 
-run(host='localhost', port=8080)
+def main(argv=None):
+    if argv is None:
+        argv = sys.argv[1:]
+
+    # Declare argumetns
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-H', '--host', default='127.0.0.1')
+    parser.add_argument('-P', '--port', default='8080')
+
+    # Run server 
+    args = parser.parse_args(argv)
+    run(host=args.host, port=args.port)
+
+
+if __name__ == '__main__':
+    main()    
